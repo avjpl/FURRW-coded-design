@@ -4,11 +4,14 @@ import { Link } from 'gatsby'
 import { HeaderNav, Logo, Menu } from '../styles/headerStyles';
 import { Container, Flex } from '../styles/globalStyles';
 
-import { useGlobalStateContent, useGlobalDispatchContent } from '../context/globalContext'
+import {
+  useGlobalStateContext,
+  useGlobalDispatchContext
+} from '../context/globalContext'
 
-const Header = () => {
-  const dispatch = useGlobalDispatchContent();
-  const { currentTheme } = useGlobalStateContent();
+const Header = ({ onCursor }) => {
+  const dispatch = useGlobalDispatchContext();
+  const { currentTheme } = useGlobalStateContext();
 
   const toggleTheme = () => {
     if (currentTheme === 'dark')
@@ -29,9 +32,16 @@ const Header = () => {
     >
       <Container>
         <Flex spaceBetween noHeight>
-          <Logo>
+          <Logo
+            onMouseEnter={() => onCursor('hovered')}
+            onMouseLeave={onCursor}
+          >
             <Link to='/'>FURR</Link>
-            <span onClick={toggleTheme}></span>
+            <span
+              onClick={toggleTheme}
+              onMouseEnter={() => onCursor('pointer')}
+              onMouseLeave={onCursor}
+            ></span>
             <Link to='/'>W</Link>
           </Logo>
 
